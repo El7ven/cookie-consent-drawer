@@ -1,0 +1,44 @@
+{
+  "name": "@cookie-consent-drawer",
+  "version": "1.0.0",
+  "description": "🍪 Modern, reusable cookie consent drawer module for Vue 3 projects with unified interface",
+  "main": "index.js",
+  "files": [
+    "*.js",
+    "*.vue",
+    "*.css",
+    "*.scss",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "lint": "eslint src --ext .js,.vue",
+    "format": "prettier --write src/**/*.{js,vue}",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "vue",
+    "vue3",
+    "cookie-consent",
+    "gdpr",
+    "privacy",
+    "drawer",
+    "modal",
+    "responsive"
+  ],
+  "author": "Semionov Igor",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/El7ven/cookie-consent-drawer.git"
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0",
+    "pinia": "^2.0.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

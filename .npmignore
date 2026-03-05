@@ -1,0 +1,40 @@
+# Исключить исходники
+src/
+*.vue
+*.js
+!index.js
+!dist/
+
+# Исключить файлы конфигурации
+rollup.config.js
+.eslintrc.*
+.prettierrc.*
+tsconfig.json
+
+# Исключить документацию
+INSTALL_*.md
+README.md
+
+# Исключить тесты
+tests/
+*.test.js
+*.spec.js
+
+# Исключить файлы разработки
+.gitignore
+.git/
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Исключить IDE файлы
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Оставить только необходимые файлы
+dist/
+LICENSE
+package.json
