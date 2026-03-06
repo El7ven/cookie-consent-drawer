@@ -1,6 +1,8 @@
-# Source files
-src/
-tests/
+# Development files
+.git/
+.gitignore
+node_modules/
+.husky/
 
 # Config files
 rollup.config.js
@@ -8,11 +10,10 @@ rollup.config.js
 .prettierrc.*
 tsconfig.json
 
-# Development files
-.git/
-.gitignore
-node_modules/
+# Tests
+tests/
 
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -23,5 +24,9 @@ yarn-error.log*
 *.swp
 *.swo
 
-# Keep dist
+# Keep these for npm
 !dist/
+!src/
+!README.md
+!LICENSE
+!package.json

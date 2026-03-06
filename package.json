@@ -1,7 +1,7 @@
 {
   "name": "@el7ven/cookie-consent-drawer",
-  "version": "1.0.5",
-  "description": "🍪 Modern, reusable cookie consent drawer module for Vue 3 projects",
+  "version": "2.0.0",
+  "description": "🍪 Enterprise-grade cookie consent library for Vue 3 with Google Consent Mode v2, GDPR/CCPA compliance, and analytics integrations",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -12,16 +12,26 @@
       "require": "./dist/index.js",
       "types": "./dist/index.d.ts"
     },
-    "./dist/style.css": "./dist/style.css"
+    "./dist/style.css": "./dist/style.css",
+    "./src/*": "./src/*"
   },
   "files": [
     "dist",
+    "src",
+    "CookieConsent.vue",
+    "CookieDrawer.vue",
     "index.js",
+    "config.js",
+    "utils.js",
+    "useCookieConsent.js",
     "styles.css",
     "README.md",
     "LICENSE"
   ],
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css",
+    "src/themes/*.css"
+  ],
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -38,8 +48,13 @@
     "cookie-consent",
     "cookie-banner",
     "gdpr",
+    "ccpa",
     "privacy",
-    "consent"
+    "consent",
+    "google-consent-mode",
+    "analytics",
+    "accessibility",
+    "wcag"
   ],
   "author": "Semionov Igor",
   "license": "MIT",
@@ -47,7 +62,7 @@
     "type": "git",
     "url": "https://github.com/El7ven/cookie-consent-drawer.git"
   },
-  "homepage": "https://github.com/...#readme",
+  "homepage": "https://github.com/El7ven/cookie-consent-drawer#readme",
   "peerDependencies": {
     "vue": "^3.2.0"
   },
