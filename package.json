@@ -1,6 +1,6 @@
 {
   "name": "@el7ven/cookie-consent-drawer",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "🍪 Enterprise-grade cookie consent library for Vue 3 with Google Consent Mode v2, GDPR/CCPA compliance, and analytics integrations",
   "type": "module",
   "main": "dist/index.js",
