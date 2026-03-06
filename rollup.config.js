@@ -1,8 +1,8 @@
 import { defineConfig } from 'rollup'
-import vue from '@rollup/plugin-vue'
+import vue from 'rollup-plugin-vue'
 import resolve from '@rollup/plugin-node-resolve'
-import { terser } from 'rollup-plugin-terser'
-import scss from 'rollup-plugin-scss'
+import terser from '@rollup/plugin-terser'
+import css from 'rollup-plugin-css-only'
 
 export default defineConfig([
   // ES Module build
@@ -16,10 +16,8 @@ export default defineConfig([
     plugins: [
       resolve(),
       vue(),
-      scss({
-        output: 'dist/style.css',
-        outputStyle: 'compressed'
-      })
+      css({ output: 'dist/style.css' }),
+      terser()
     ]
   },
   // CommonJS build
@@ -33,11 +31,8 @@ export default defineConfig([
     plugins: [
       resolve(),
       vue(),
-      terser(),
-      scss({
-        output: 'dist/style.css',
-        outputStyle: 'compressed'
-      })
+      css({ output: 'dist/style.css' }),
+      terser()
     ]
   },
   // UMD build for CDN
@@ -56,11 +51,8 @@ export default defineConfig([
     plugins: [
       resolve(),
       vue(),
-      terser(),
-      scss({
-        output: 'dist/style.css',
-        outputStyle: 'compressed'
-      })
+      css({ output: 'dist/style.css' }),
+      terser()
     ]
   }
 ])

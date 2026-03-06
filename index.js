@@ -1,6 +1,6 @@
 export { default as CookieConsent } from './CookieConsent.vue'
 export { default as CookieDrawer } from './CookieDrawer.vue'
-export { default as useCookieConsent } from './useCookieConsent.js'
+export { useCookieConsent } from './useCookieConsent.js'
 export { cookieConsentManager } from './utils.js'
 
 export {

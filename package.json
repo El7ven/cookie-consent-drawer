@@ -1,16 +1,32 @@
 {
-  "name": "@cookie-consent-drawer",
+  "name": "@el7ven/cookie-consent-drawer",
   "version": "1.0.0",
-  "description": "🍪 Modern, reusable cookie consent drawer module for Vue 3 projects with unified interface",
-  "main": "index.js",
+  "description": "🍪 Modern, reusable cookie consent drawer module for Vue 3 projects",
+  "type": "module",
+
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+    }
+  },
+
   "files": [
-    "*.js",
-    "*.vue",
-    "*.css",
-    "*.scss",
+    "dist",
+    "index.js",
     "README.md",
     "LICENSE"
   ],
+
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
+
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -18,27 +34,42 @@
     "format": "prettier --write src/**/*.{js,vue}",
     "prepublishOnly": "npm run build"
   },
+
   "keywords": [
     "vue",
     "vue3",
+    "cookie",
     "cookie-consent",
+    "cookie-banner",
     "gdpr",
     "privacy",
-    "drawer",
-    "modal",
-    "responsive"
+    "consent"
   ],
+
   "author": "Semionov Igor",
   "license": "MIT",
+
   "repository": {
     "type": "git",
     "url": "https://github.com/El7ven/cookie-consent-drawer.git"
   },
+
+  "homepage": "https://github.com/...#readme",
+
   "peerDependencies": {
-    "vue": "^3.0.0",
-    "pinia": "^2.0.0"
+    "vue": "^3.2.0"
   },
+
+  "devDependencies": {
+    "rollup": "^3.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "rollup-plugin-vue": "^6.0.0",
+    "@rollup/plugin-terser": "^0.4.0",
+    "rollup-plugin-css-only": "^4.0.0"
+  },
+
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=16"
   }
 }

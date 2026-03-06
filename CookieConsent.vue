@@ -120,13 +120,13 @@ defineExpose({
 })
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 .cookie-consent {
   position: relative;
+}
 
-  &--has-modal {
-    // Ensure the container can contain the absolute positioned modal
-    min-height: 100vh;
-  }
+.cookie-consent--has-modal {
+  /* Ensure the container can contain the absolute positioned modal */
+  min-height: 100vh;
 }
 </style>
