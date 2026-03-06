@@ -3,6 +3,9 @@ export { default as CookieDrawer } from './CookieDrawer.vue'
 export { useCookieConsent } from './useCookieConsent.js'
 export { cookieConsentManager } from './utils.js'
 
+// Export CSS
+import './styles.css'
+
 export {
   hasConsent,
   hasCategoryConsent,
