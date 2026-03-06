@@ -1,6 +1,6 @@
 {
   "name": "@el7ven/cookie-consent-drawer",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "🍪 Modern, reusable cookie consent drawer module for Vue 3 projects",
   "type": "module",
   "main": "dist/index.js",
