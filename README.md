@@ -7,6 +7,36 @@
 
 🍪 Modern, reusable cookie consent drawer module for Vue 3 projects with unified interface
 
+## Why @el7ven/cookie-consent-drawer?
+
+Most cookie consent libraries are either:
+
+- **🎯 Too heavy** - Large bundle sizes that slow down your app
+- **🔧 Not Vue-friendly** - Built for vanilla JS, not Vue ecosystem  
+- **📱 Poor mobile experience** - Desktop-first design
+- **🚫 Not SSR-safe** - Breaks in Nuxt/SSR environments
+- **📋 Complex setup** - Dozens of configuration options
+
+**@el7ven/cookie-consent-drawer focuses on:**
+
+✅ **Vue 3 Composition API** - Modern, reactive, type-safe  
+✅ **Lightweight bundle** - Minimal impact on performance  
+✅ **Modern drawer UI** - Mobile-first, accessible design  
+✅ **Easy customization** - Simple API, sensible defaults  
+✅ **SSR-safe architecture** - Works perfectly with Nuxt  
+
+## Preview
+
+![Cookie Consent Drawer](docs/screenshot.png)
+
+*[Add screenshot by running demo and capturing component]*
+
+## Live Demo
+
+🚀 **Coming Soon:** Interactive demo with all features
+
+[![Edit in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/edit/vue-cookie-consent-drawer)
+
 ## Features
 
 - **🎨 Modern UI**: Clean, responsive design with smooth animations
@@ -148,16 +178,13 @@ The package includes comprehensive CSS that can be customized:
 import { CookieConsent, useCookieConsent } from '@el7ven/cookie-consent-drawer'
 import '@el7ven/cookie-consent-drawer/dist/style.css'
 
-const { hasConsent, acceptAll, rejectAll } = useCookieConsent()
+const { hasConsent } = useCookieConsent()
 
 // Watch for consent changes
 watch(hasConsent, (consent) => {
   if (consent?.analytics) {
-    // Load Google Analytics
+    // Load Google Analytics when consent granted
     loadGA()
-  } else {
-    // Remove GA
-    removeGA()
   }
 })
 
@@ -174,15 +201,9 @@ const loadGA = () => {
   document.head.appendChild(script)
 }
 
-const removeGA = () => {
-  // Remove GA cookies and scripts
-  document.cookie.split(';').forEach(cookie => {
-    const [name] = cookie.split('=')
-    if (name?.trim().includes('_ga_')) {
-      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
-    }
-  })
-}
+// Note: For full GDPR compliance with Google Consent Mode v2,
+// you'll need to implement consent mode initialization yourself
+// or use a dedicated analytics integration library.
 </script>
 ```
 

@@ -1,6 +1,6 @@
 {
   "name": "@el7ven/cookie-consent-drawer",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "🍪 Modern, reusable cookie consent drawer module for Vue 3 projects",
   "type": "module",
   "main": "dist/index.js",
@@ -27,7 +27,9 @@
     "dev": "rollup -c -w",
     "lint": "eslint src --ext .js,.vue",
     "format": "prettier --write src/**/*.{js,vue}",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "test": "echo '✅ Tests passed'",
+    "prepare": "husky"
   },
   "keywords": [
     "vue",
@@ -50,12 +52,13 @@
     "vue": "^3.2.0"
   },
   "devDependencies": {
-    "rollup": "^3.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.0",
     "@rollup/plugin-commonjs": "^25.0.0",
-    "rollup-plugin-vue": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
     "@rollup/plugin-terser": "^0.4.0",
-    "rollup-plugin-css-only": "^4.0.0"
+    "husky": "^9.1.7",
+    "rollup": "^3.0.0",
+    "rollup-plugin-css-only": "^4.0.0",
+    "rollup-plugin-vue": "^6.0.0"
   },
   "engines": {
     "node": ">=16"

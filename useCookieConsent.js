@@ -3,6 +3,17 @@ import { COOKIE_CONSENT_CONFIG } from './config.js'
 import { cookieConsentManager } from './utils.js'
 
 export function useCookieConsent(config = COOKIE_CONSENT_CONFIG) {
+  // Normalize categories from array to object
+  const normalizedCategories = computed(() => {
+    if (Array.isArray(config.categories)) {
+      return config.categories.reduce((acc, category) => {
+        acc[category.id] = category
+        return acc
+      }, {})
+    }
+    return config.categories || {}
+  })
+
   // State
   const isVisible = ref(false)
   const showSettings = ref(false)
@@ -15,11 +26,11 @@ export function useCookieConsent(config = COOKIE_CONSENT_CONFIG) {
   // Computed
   const mode = computed(() => config.mode)
   const enabledCategories = computed(() => 
-    Object.keys(config.categories).filter(catId => config.categories[catId].enabled)
+    Object.keys(normalizedCategories.value).filter(catId => normalizedCategories.value[catId].enabled)
   )
   
   const requiredCategories = computed(() => 
-    Object.keys(config.categories).filter(catId => config.categories[catId].required)
+    Object.keys(normalizedCategories.value).filter(catId => normalizedCategories.value[catId].required)
   )
   
   const selectedCategories = computed(() => 
