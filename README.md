@@ -1,5 +1,10 @@
 # @el7ven/cookie-consent-drawer
 
+![npm version](https://img.shields.io/npm/v/@el7ven/cookie-consent-drawer)
+![npm downloads](https://img.shields.io/npm/dm/@el7ven/cookie-consent-drawer)
+![license](https://img.shields.io/npm/l/@el7ven/cookie-consent-drawer)
+![bundle size](https://img.shields.io/bundlephobia/minzip/@el7ven/cookie-consent-drawer)
+
 🍪 Modern, reusable cookie consent drawer module for Vue 3 projects with unified interface
 
 ## Features
@@ -32,6 +37,7 @@ npm install @el7ven/cookie-consent-drawer
 
 <script setup>
 import { CookieConsent } from '@el7ven/cookie-consent-drawer'
+import '@el7ven/cookie-consent-drawer/dist/style.css'
 </script>
 ```
 
@@ -135,6 +141,51 @@ The package includes comprehensive CSS that can be customized:
 }
 ```
 
+### Analytics Integration
+
+```vue
+<script setup>
+import { CookieConsent, useCookieConsent } from '@el7ven/cookie-consent-drawer'
+import '@el7ven/cookie-consent-drawer/dist/style.css'
+
+const { hasConsent, acceptAll, rejectAll } = useCookieConsent()
+
+// Watch for consent changes
+watch(hasConsent, (consent) => {
+  if (consent?.analytics) {
+    // Load Google Analytics
+    loadGA()
+  } else {
+    // Remove GA
+    removeGA()
+  }
+})
+
+const loadGA = () => {
+  // Google Analytics initialization
+  window.dataLayer = window.dataLayer || []
+  function gtag(){dataLayer.push(arguments)}
+  gtag('js', new Date())
+  gtag('config', 'GA_MEASUREMENT_ID')
+  
+  const script = document.createElement('script')
+  script.async = true
+  script.src = 'https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID'
+  document.head.appendChild(script)
+}
+
+const removeGA = () => {
+  // Remove GA cookies and scripts
+  document.cookie.split(';').forEach(cookie => {
+    const [name] = cookie.split('=')
+    if (name?.trim().includes('_ga_')) {
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`
+    }
+  })
+}
+</script>
+```
+
 ## API Reference
 
 ### Components
@@ -210,6 +261,25 @@ app.use(CookieConsentPlugin, {
   },
   autoShow: true
 })
+```
+
+## Nuxt Support
+
+This package is SSR-safe. Use with `<ClientOnly>`:
+
+```vue
+<template>
+  <div>
+    <ClientOnly>
+      <CookieConsent />
+    </ClientOnly>
+  </div>
+</template>
+
+<script setup>
+import { CookieConsent } from '@el7ven/cookie-consent-drawer'
+import '@el7ven/cookie-consent-drawer/dist/style.css'
+</script>
 ```
 
 ## Browser Support
