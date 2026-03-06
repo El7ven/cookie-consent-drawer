@@ -1,201 +1,181 @@
-# Cookie Consent Module - Universal & Reusable
+# @el7ven/cookie-consent-drawer
 
-A comprehensive, standalone Cookie Consent module with unified Drawer architecture. Can be easily reused across different projects.
+🍪 Modern, reusable cookie consent drawer module for Vue 3 projects with unified interface
 
 ## Features
 
-- **Unified Drawer**: Single component for banner and settings modes
-- **Adaptive UI**: Desktop slide + Mobile bottom sheet
-- **Privacy by Default**: Only required cookies enabled initially
-- **Configurable Categories**: Necessary, Analytics, Marketing, Preferences
-- **Responsive Design**: Mobile and desktop optimized
-- **Body Scroll Lock**: Proper modal behavior
-- **Version Control**: Automatic re-consent on version changes
-- **Event System**: Custom events for integration
-- **Cross-Project Ready**: Universal installation helpers
+- **🎨 Modern UI**: Clean, responsive design with smooth animations
+- **📱 Mobile First**: Adaptive interface for desktop and mobile
+- **🔒 Privacy by Default**: Only essential cookies enabled initially
+- **⚙️ Configurable Categories**: Analytics, Marketing, Functional, Preferences
+- **🎯 Easy Integration**: Simple setup with Vue 3 Composition API
+- **🌙 Dark Mode Support**: Built-in theme switching
+- **📦 Lightweight**: Minimal bundle size with tree-shaking support
+- **🔧 TypeScript Ready**: Full type definitions included
+
+## Installation
+
+```bash
+npm install @el7ven/cookie-consent-drawer
+```
 
 ## Quick Start
 
-### Method 1: Plugin Installation (Recommended)
-
-```javascript
-// main.js
-import { createApp } from 'vue'
-import { CookieConsentPlugin } from '@/components/cookie-consent'
-import App from './App.vue'
-
-const app = createApp(App)
-
-// Install as plugin
-app.use(CookieConsentPlugin, {
-  componentName: 'cookie-consent',
-  autoMount: true,
-  mountSelector: '#cookie-consent-mount'
-})
-
-app.mount('#app')
-```
-
-### Method 2: Manual Installation
-
-```javascript
-// main.js
-import { createApp } from 'vue'
-import { installCookieConsent } from '@/components/cookie-consent'
-import App from './App.vue'
-
-const app = createApp(App)
-
-// Install manually
-const { component, config } = installCookieConsent(app, {
-  componentName: 'cookie-consent'
-})
-
-app.mount('#app')
-```
-
-### Method 3: Component Import
+### Basic Usage
 
 ```vue
 <template>
-  <div id="app">
-    <!-- Your app content -->
+  <div>
     <CookieConsent />
   </div>
 </template>
 
 <script setup>
-import { CookieConsent } from '@/components/cookie-consent'
+import { CookieConsent } from '@el7ven/cookie-consent-drawer'
 </script>
 ```
 
-## Cross-Project Usage
+### Advanced Configuration
 
-### Installation in Different Projects
+```vue
+<template>
+  <div>
+    <CookieConsent 
+      :config="config"
+      @consent-given="handleConsent"
+    />
+  </div>
+</template>
 
-```javascript
-// Any Vue 3 project
-import { initCookieConsent } from './path/to/cookie-consent'
+<script setup>
+import { CookieConsent, useCookieConsent } from '@el7ven/cookie-consent-drawer'
 
-const app = createApp(App)
-const pinia = createPinia()
-
-// Initialize with backward compatibility
-const { component, config, status } = initCookieConsent(app, pinia, {
-  // Legacy support options
-  legacyStorageKey: 'old_cookies_key',
-  showLegacyModal: true,
-  legacyDelay: 3000,
-  useModalStore: (pinia) => useModalStore(pinia),
-  translator: (key) => translate(key)
-})
-
-app.use(pinia)
-app.mount('#app')
-```
-
-### Package Structure for Distribution
-
-```
-cookie-consent/
-├── dist/                     # Built files for distribution
-├── src/                      # Source files
-│   ├── CookieConsent.vue
-│   ├── CookieDrawer.vue
-│   ├── useCookieConsent.js
-│   ├── utils.js
-│   ├── config.js
-│   ├── install.js
-│   └── index.js
-├── package.json              # Package configuration
-└── README.md                 # Documentation
-```
-
-## Configuration
-
-### Basic Configuration
-
-```javascript
-import { COOKIE_CONSENT_CONFIG } from '@/components/cookie-consent'
-
-const customConfig = {
-  ...COOKIE_CONSENT_CONFIG,
-  mode: 'gdpr',
-  categories: {
-    necessary: {
+const config = {
+  title: 'Privacy Settings',
+  description: 'We use cookies to enhance your experience.',
+  categories: [
+    {
       id: 'necessary',
-      label: 'Necesare',
+      title: 'Essential Cookies',
+      description: 'Required for the site to function',
       required: true,
-      locked: true
+      cookies: [
+        { name: 'session_id', duration: 'Session' }
+      ]
     },
-    analytics: {
+    {
       id: 'analytics',
-      label: 'Statistice',
+      title: 'Analytics Cookies',
+      description: 'Help us improve our services',
       required: false,
-      enabled: true
-    },
-    marketing: {
-      id: 'marketing',
-      label: 'Marketing',
-      required: false,
-      enabled: false
+      cookies: [
+        { name: 'ga_tracking', duration: '2 years' }
+      ]
     }
-  },
-  display: {
-    position: 'top-right',
-    animation: 'slide',
-    delay: 1000
-  }
+  ]
+}
+
+const { hasConsent, acceptAll, rejectAll } = useCookieConsent(config)
+
+const handleConsent = (categories) => {
+  console.log('User consent:', categories)
+}
+</script>
+```
+
+## Configuration Options
+
+### Default Config
+
+```javascript
+{
+  title: 'Cookie Preferences',
+  description: 'We use cookies to ensure you get the best experience.',
+  privacyPolicyUrl: '/privacy',
+  imprintUrl: '/imprint',
+  categories: [
+    {
+      id: 'necessary',
+      title: 'Necessary Cookies',
+      description: 'These cookies are essential for the website to function.',
+      required: true,
+      icon: '🔒'
+    },
+    {
+      id: 'analytics',
+      title: 'Analytics Cookies',
+      description: 'Help us understand how visitors interact with our website.',
+      required: false,
+      icon: '📊'
+    },
+    {
+      id: 'marketing',
+      title: 'Marketing Cookies',
+      description: 'Used to deliver advertisements that are relevant to you.',
+      required: false,
+      icon: '🎯'
+    }
+  ]
 }
 ```
 
-### Custom Installation Options
+### Custom Styling
 
-```javascript
-// Plugin options
-app.use(CookieConsentPlugin, {
-  componentName: 'cookie-consent',     // Custom component name
-  autoMount: true,                     // Auto-mount to DOM
-  mountSelector: '#cookie-mount',      // DOM selector for mounting
-  customConfig: {                      // Custom configuration
-    ...COOKIE_CONSENT_CONFIG,
-    mode: 'essential'
-  }
-})
+The package includes comprehensive CSS that can be customized:
+
+```css
+/* Override primary colors */
+.cookie-drawer__button--primary {
+  background: #your-brand-color;
+}
+
+/* Custom animations */
+.cookie-drawer__content {
+  border-radius: 16px;
+}
 ```
 
 ## API Reference
 
 ### Components
 
-```javascript
-// Main container component
-import { CookieConsent } from '@/components/cookie-consent'
+#### CookieConsent
 
-// Unified drawer component
-import { CookieDrawer } from '@/components/cookie-consent'
-```
+Main component that handles the cookie consent interface.
+
+**Props:**
+- `config` (Object): Configuration object
+- `showSettings` (Boolean): Start in settings mode
+
+**Events:**
+- `@consent-given`: Fired when user makes consent choice
+- `@settings-opened`: Fired when settings panel is opened
+
+#### CookieDrawer
+
+Advanced drawer component for custom implementations.
+
+**Props:**
+- `isVisible` (Boolean): Control drawer visibility
+- `isSettingsMode` (Boolean): Enable settings mode
+- `categories` (Array): Cookie categories configuration
+- `config` (Object): UI configuration
 
 ### Composables
 
-```javascript
-import { useCookieConsent } from '@/components/cookie-consent'
+#### useCookieConsent
 
+```javascript
 const {
-  isVisible,           // Drawer visibility
-  showSettings,         // Settings mode
-  currentTab,          // Active settings tab
-  categories,         // Category states
-  consent,             // Consent data
-  mode,                // Current mode (essential/gdpr)
-  acceptAll,           // Accept all categories
-  rejectAll,           // Reject all (except required)
-  acceptSelection,     // Accept selected categories
-  openSettings,        // Open settings mode
-  closeSettings,       // Close settings mode
-  selectTab,           // Select settings tab
-  toggleCategory,      // Toggle category
-  resetConsent         // Reset all consent
+  isVisible,
+  showSettings,
+  currentTab,
+  categories,
+  hasConsent,
+  acceptAll,
+  rejectAll,
+  saveConsent,
+  resetConsent
 } = useCookieConsent(config)
 ```
 
@@ -203,184 +183,50 @@ const {
 
 ```javascript
 import { 
-  hasConsent,              // Check if user has consented
-  hasCategoryConsent,      // Check specific category
-  acceptAllCookies,        // Accept all cookies
-  rejectAllCookies,        // Reject all cookies
-  clearCookieConsent       // Clear consent data
-} from '@/components/cookie-consent'
-
-// Usage examples
-if (hasConsent()) {
-  // User has given consent
-}
-
-if (hasCategoryConsent('analytics')) {
-  // Load analytics scripts
-}
+  hasConsent,
+  hasCategoryConsent,
+  acceptAllCookies,
+  rejectAllCookies,
+  clearCookieConsent
+} from '@el7ven/cookie-consent-drawer'
 ```
 
-### Installation Helpers
+## Plugin Integration
+
+### Vue Plugin
 
 ```javascript
-import { 
-  installCookieConsent,    // Install component
-  initCookieConsent,       // Initialize with legacy support
-  CookieConsentPlugin     // Vue plugin
-} from '@/components/cookie-consent'
-```
+// main.js
+import { createApp } from 'vue'
+import { CookieConsentPlugin } from '@el7ven/cookie-consent-drawer'
+import App from './App.vue'
 
-## Events
+const app = createApp(App)
 
-### Consent Events
-
-```javascript
-// Listen for consent changes
-window.addEventListener('cookieConsentChanged', (event) => {
-  const { consent, categories } = event.detail
-  console.log('Consent changed:', categories)
+app.use(CookieConsentPlugin, {
+  config: {
+    title: 'My App Privacy',
+    // ... your config
+  },
+  autoShow: true
 })
-
-// Listen for consent cleared
-window.addEventListener('cookieConsentCleared', () => {
-  console.log('Consent cleared')
-})
-
-// Listen for consent closed
-window.addEventListener('cookieConsentClosed', () => {
-  console.log('Consent UI closed')
-})
-```
-
-## Integration Examples
-
-### Google Analytics Integration
-
-```javascript
-// Load analytics only after consent
-window.addEventListener('cookieConsentChanged', (event) => {
-  const { categories } = event.detail
-  
-  if (categories.analytics) {
-    // Load Google Analytics
-    loadGTag()
-    initializeGA()
-  }
-  
-  if (categories.marketing) {
-    // Load marketing pixels
-    loadFacebookPixel()
-    loadGoogleAds()
-  }
-})
-
-function loadGTag() {
-  // Your analytics loading logic
-}
-```
-
-### Custom Modal Integration
-
-```javascript
-// For projects with existing modal systems
-const { component, config, status } = initCookieConsent(app, pinia, {
-  showLegacyModal: true,
-  useModalStore: (pinia) => useYourModalStore(pinia),
-  translator: (key) => i18n.global.t(key),
-  legacyDelay: 2000
-})
-```
-
-## Styling & Theming
-
-### CSS Custom Properties
-
-```scss
-:root {
-  --cookie-drawer-primary-color: #007bff;
-  --cookie-drawer-secondary-color: #6c757d;
-  --cookie-drawer-border-radius: 12px;
-  --cookie-drawer-backdrop-blur: 4px;
-  --cookie-drawer-max-width: 900px;
-}
-```
-
-### Component Styling
-
-```scss
-// Override drawer styles
-.cookie-drawer__content {
-  background: your-custom-bg;
-  border-radius: var(--cookie-drawer-border-radius);
-}
-
-// Custom toggle styles
-.cookie-drawer__toggle-label {
-  background: your-custom-color;
-}
-```
-
-## File Structure
-
-```
-cookie-consent/
-├── CookieConsent.vue          # Main container component
-├── CookieDrawer.vue           # Unified drawer component
-├── useCookieConsent.js        # Composable with logic
-├── utils.js                   # Utility functions & manager
-├── config.js                  # Configuration constants
-├── install.js                 # Installation helpers
-├── index.js                   # Universal exports
-└── README.md                  # Documentation
 ```
 
 ## Browser Support
 
-- Chrome 60+
-- Firefox 55+
-- Safari 12+
-- Edge 79+
-
-## Migration from Old Architecture
-
-### From Multiple Components
-
-```javascript
-// Old way
-import CookieBannerEssential from './CookieBannerEssential.vue'
-import CookieBannerGDPR from './CookieBannerGDPR.vue'
-import CookieSettingsModal from './CookieSettingsModal.vue'
-
-// New way
-import { CookieConsent } from '@/components/cookie-consent'
-```
-
-### Legacy Data Migration
-
-The module automatically migrates legacy consent data:
-
-```javascript
-// Old format (automatically detected and migrated)
-{
-  expiresAt: 1234567890,
-  analytics: true,
-  marketing: false
-}
-
-// New format (automatically created)
-{
-  version: '1.0.0',
-  timestamp: 1234567890,
-  hasConsented: true,
-  categories: {
-    necessary: true,
-    analytics: true,
-    marketing: false,
-    preferences: false
-  }
-}
-```
+- Chrome >= 88
+- Firefox >= 78  
+- Safari >= 14
+- Edge >= 88
 
 ## License
 
-MIT License - feel free to use in commercial projects and distribute across multiple projects.
+MIT © [El7ven](https://github.com/El7ven)
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Support
+
+If you have any questions or issues, please [open an issue](https://github.com/El7ven/cookie-consent-drawer/issues).
