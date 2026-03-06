@@ -16,17 +16,7 @@ export {
 
 export { COOKIE_CONSENT_CONFIG, DEFAULT_CONSENT_STATE } from './config.js'
 
-export {
-  installCookieConsent,
-  initCookieConsent,
-  CookieConsentPlugin
-} from './install.js'
+// v2 exports available via src/
+export { CookieConsentPlugin } from './src/index.js'
+export { ConsentManager } from './src/core/ConsentManager.js'
 
-export {
-  initCookieDrawer,
-  installCookieDrawer,
-  autoInitCookieDrawer,
-  CookieDrawerPlugin
-} from './helper.js'
-
-export { default } from './install.js'
